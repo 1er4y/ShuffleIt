@@ -105,8 +105,10 @@ public struct CarouselStack<Data: RandomAccessCollection, Content: View>: View {
         .padding(.horizontal, padding)
         .frame(minHeight: size.height)
         .onPreferenceChange(SizePreferenceKey.self) { size in
-            DispatchQueue.main.async {
-                self.size = size
+            if size != .zero {
+                DispatchQueue.main.async {
+                    self.size = size
+                }
             }
         }
         .onReceive(carouselTrigger) { direction in
